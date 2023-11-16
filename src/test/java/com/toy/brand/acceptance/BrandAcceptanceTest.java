@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @DisplayName("Brand 인수테스트")
-class BrandAcceptanceTest extends AcceptanceTest {
-    String baseUrl = "/brands";
+public class BrandAcceptanceTest extends AcceptanceTest {
+    static String baseUrl = "/brands";
 
     @Test
     void 브랜드_생성_시나리오() {
@@ -20,11 +20,13 @@ class BrandAcceptanceTest extends AcceptanceTest {
         브랜드_생성됨(response);
     }
 
-    private void 브랜드_생성됨(ExtractableResponse<Response> response) {
+    public static Long 브랜드_생성됨(ExtractableResponse<Response> response) {
         assertHttpStatus(response, CREATED);
+        String[] locations = response.header("Location").split("/");
+        return Long.valueOf(locations[locations.length - 1]);
     }
 
-    private ExtractableResponse<Response> 브랜드_생성_요청(BrandRegisterRequest brandRegisterRequest) {
+    public static ExtractableResponse<Response> 브랜드_생성_요청(BrandRegisterRequest brandRegisterRequest) {
         return post(baseUrl, brandRegisterRequest);
     }
 }

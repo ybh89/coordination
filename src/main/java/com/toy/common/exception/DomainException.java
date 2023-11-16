@@ -8,6 +8,11 @@ public class DomainException extends RuntimeException {
         this.exceptionCode = exceptionCode;
     }
 
+    public DomainException(ExceptionCode exceptionCode, String append) {
+        super(exceptionCode.message() + "\n" + append);
+        this.exceptionCode = exceptionCode;
+    }
+
     public DomainException(ExceptionCode exceptionCode, Throwable cause) {
         super(exceptionCode.message(), cause);
         this.exceptionCode = exceptionCode;
