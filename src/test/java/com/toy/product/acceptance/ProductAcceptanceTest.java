@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.toy.brand.acceptance.BrandAcceptanceTest.브랜드_생성_요청;
 import static com.toy.brand.acceptance.BrandAcceptanceTest.브랜드_생성됨;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @DisplayName("Product 인수테스트")
 public class ProductAcceptanceTest extends AcceptanceTest {
@@ -36,6 +35,16 @@ public class ProductAcceptanceTest extends AcceptanceTest {
         상품가격_변경됨(response2);
 
         // 상품 삭제
+        ExtractableResponse<Response> response3 = 상품_삭제_요청(productId);
+        상품_삭제됨(response3);
+    }
+
+    private void 상품_삭제됨(ExtractableResponse<Response> response3) {
+        assertHttpStatus(response3, NO_CONTENT);
+    }
+
+    private ExtractableResponse<Response> 상품_삭제_요청(Long productId) {
+        return delete(baseUrl + "/" + productId);
     }
 
     private void 상품가격_변경됨(ExtractableResponse<Response> response2) {
