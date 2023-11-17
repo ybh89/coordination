@@ -1,6 +1,5 @@
 package com.toy.brand.acceptance;
 
-import com.toy.brand.command.presentation.BrandModifyController;
 import com.toy.brand.command.presentation.dto.BrandModifyRequest;
 import com.toy.brand.command.presentation.dto.BrandRegisterRequest;
 import com.toy.test.AcceptanceTest;
@@ -28,8 +27,16 @@ public class BrandAcceptanceTest extends AcceptanceTest {
         브랜드_수정됨(response2);
 
         // 브랜드 삭제
-        /*ExtractableResponse<Response> response3 = delete(baseUrl + "/" + brandId);
-        assertHttpStatus(response3, NO_CONTENT);*/
+        ExtractableResponse<Response> response3 = 브랜드_삭제_요청(brandId);
+        브랜드_삭제됨(response3);
+    }
+
+    private void 브랜드_삭제됨(ExtractableResponse<Response> response3) {
+        assertHttpStatus(response3, NO_CONTENT);
+    }
+
+    private ExtractableResponse<Response> 브랜드_삭제_요청(Long brandId) {
+        return delete(baseUrl + "/" + brandId);
     }
 
     private void 브랜드_수정됨(ExtractableResponse<Response> response2) {
