@@ -45,4 +45,10 @@ public class Brand {
     public Long id() {
         return id;
     }
+
+    public String name() { return name; }
+
+    public void modify(Brand modifyBrand) {
+        this.name = modifyBrand.name();
+    }
 }

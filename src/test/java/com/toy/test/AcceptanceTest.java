@@ -78,6 +78,18 @@ public abstract class AcceptanceTest {
                 .extract();
     }
 
+    public static ExtractableResponse<Response> put(String path, Object params) {
+        return given()
+                .log().all()
+                .body(params)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .put(path)
+                .then()
+                .log().all()
+                .extract();
+    }
+
     public static ExtractableResponse<Response> delete(String path) {
         return given()
                 .log().all()

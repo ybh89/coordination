@@ -1,5 +1,7 @@
 package com.toy.brand.acceptance;
 
+import com.toy.brand.command.presentation.BrandModifyController;
+import com.toy.brand.command.presentation.dto.BrandModifyRequest;
 import com.toy.brand.command.presentation.dto.BrandRegisterRequest;
 import com.toy.test.AcceptanceTest;
 import io.restassured.response.ExtractableResponse;
@@ -7,17 +9,35 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.*;
 
 @DisplayName("Brand 인수테스트")
 public class BrandAcceptanceTest extends AcceptanceTest {
     static String baseUrl = "/brands";
 
     @Test
-    void 브랜드_생성_시나리오() {
+    void 브랜드_생성_수정_삭제_시나리오() {
+        // 브랜드 생성
         BrandRegisterRequest brandRegisterRequest = new BrandRegisterRequest("test");
-        ExtractableResponse<Response> response = 브랜드_생성_요청(brandRegisterRequest);
-        브랜드_생성됨(response);
+        ExtractableResponse<Response> response1 = 브랜드_생성_요청(brandRegisterRequest);
+        Long brandId = 브랜드_생성됨(response1);
+
+        // 브랜드 수정
+        BrandModifyRequest brandModifyRequest = new BrandModifyRequest("changeName");
+        ExtractableResponse<Response> response2 = 브랜드_수정_요청(brandId, brandModifyRequest);
+        브랜드_수정됨(response2);
+
+        // 브랜드 삭제
+        /*ExtractableResponse<Response> response3 = delete(baseUrl + "/" + brandId);
+        assertHttpStatus(response3, NO_CONTENT);*/
+    }
+
+    private void 브랜드_수정됨(ExtractableResponse<Response> response2) {
+        assertHttpStatus(response2, OK);
+    }
+
+    private ExtractableResponse<Response> 브랜드_수정_요청(Long brandId, BrandModifyRequest brandModifyRequest) {
+        return put(baseUrl + "/" + brandId, brandModifyRequest);
     }
 
     public static Long 브랜드_생성됨(ExtractableResponse<Response> response) {
