@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.EqualsAndHashCode;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import static com.toy.common.exception.ExceptionCode.BRAND_NAME_NOT_EXIST;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@EqualsAndHashCode(of = "id")
 @Entity
 public class Brand {
     @GeneratedValue(strategy = IDENTITY)
@@ -42,18 +44,5 @@ public class Brand {
 
     public Long id() {
         return id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Brand brand = (Brand) o;
-        return Objects.equals(id, brand.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

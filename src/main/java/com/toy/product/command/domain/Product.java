@@ -3,13 +3,13 @@ package com.toy.product.command.domain;
 import com.toy.common.exception.DomainException;
 import com.toy.product.command.domain.service.ProductRegisterValidator;
 import jakarta.persistence.*;
-
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
 
 import static com.toy.common.exception.ExceptionCode.BRAND_ID_IS_NULL;
-import static jakarta.persistence.EnumType.*;
+import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@EqualsAndHashCode(of = "id")
 @Entity
 public class Product {
     @GeneratedValue(strategy = IDENTITY)
@@ -52,16 +52,7 @@ public class Product {
         return id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return Objects.equals(id, product.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void changePrice(int price) {
+        this.price = Price.from(price);
     }
 }

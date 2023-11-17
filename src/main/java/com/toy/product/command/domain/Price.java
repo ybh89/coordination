@@ -3,9 +3,11 @@ package com.toy.product.command.domain;
 import com.toy.common.exception.DomainException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.EqualsAndHashCode;
 
 import static com.toy.common.exception.ExceptionCode.PRODUCT_PRICE_IS_NEGATIVE;
 
+@EqualsAndHashCode(of = "value")
 @Embeddable
 public class Price {
     public static final int MINIMUM_VALUE = 0;
