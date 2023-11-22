@@ -7,7 +7,9 @@ public enum ExceptionCode {
     PRODUCT_PRICE_IS_NEGATIVE(200000, "상품 가격은 음수가 될 수 없습니다."),
     BRAND_ID_IS_NULL(200001, "브랜드 아이디가 null 입니다."),
     CATEGORY_VALUE_IS_INVALID(200002, "카테고리 값이 유효하지 않습니다."),
-    PRODUCT_NOT_EXIST(200003, "해당 상품이 존재하지 않습니다.")
+    PRODUCT_NOT_EXIST(200003, "해당 상품이 존재하지 않습니다."),
+
+    RETRY_FAILED(300000, "재시도가 전부 실패했습니다.")
     ;
 
     private int code;

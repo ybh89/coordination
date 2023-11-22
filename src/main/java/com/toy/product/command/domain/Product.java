@@ -52,6 +52,14 @@ public class Product {
         return id;
     }
 
+    public Price price() {
+        return price;
+    }
+
+    public Category category() { return category; }
+
+    public Long brandId() { return brandId; }
+
     public void changePrice(int price) {
         this.price = Price.from(price);
     }

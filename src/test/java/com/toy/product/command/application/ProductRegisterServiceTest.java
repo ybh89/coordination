@@ -1,5 +1,6 @@
 package com.toy.product.command.application;
 
+import com.toy.outbox.command.application.OutboxService;
 import com.toy.product.command.domain.Product;
 import com.toy.product.command.domain.ProductRepository;
 import com.toy.product.command.domain.service.ProductRegisterValidator;
@@ -16,13 +17,16 @@ import static org.mockito.Mockito.*;
 @DisplayName("ProductRegisterService 단위테스트")
 class ProductRegisterServiceTest {
     @Mock
-    private ProductRepository productRepository;
+    ProductRepository productRepository;
 
     @Mock
-    private ProductRegisterValidator productRegisterValidator;
+    ProductRegisterValidator productRegisterValidator;
+
+    @Mock
+    OutboxService outboxService;
 
     @InjectMocks
-    private ProductRegisterService productRegisterService;
+    ProductRegisterService productRegisterService;
 
     @BeforeEach
     void setUp() {

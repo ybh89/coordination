@@ -33,4 +33,8 @@ public class Price {
             throw new DomainException(PRODUCT_PRICE_IS_NEGATIVE);
         }
     }
+
+    public int value() {
+        return value;
+    }
 }

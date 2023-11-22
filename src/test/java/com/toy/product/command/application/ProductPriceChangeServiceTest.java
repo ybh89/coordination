@@ -1,6 +1,8 @@
 package com.toy.product.command.application;
 
 import com.toy.common.exception.DomainException;
+import com.toy.outbox.command.application.OutboxService;
+import com.toy.outbox.command.domain.event.ProductPriceChangedOutboxEvent;
 import com.toy.product.command.domain.Product;
 import com.toy.product.command.domain.ProductRepository;
 import org.assertj.core.api.Assertions;
@@ -19,30 +21,35 @@ import static org.mockito.Mockito.*;
 @DisplayName("ProductPriceChangeService 단위테스트")
 class ProductPriceChangeServiceTest {
     @Mock
-    private ProductRepository productRepository;
+    ProductRepository productRepository;
+
+    @Mock
+    OutboxService outboxService;
 
     @InjectMocks
-    private ProductPriceChangeService service;
+    ProductPriceChangeService service;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void change_메소드_실행하면_Product의_changePrice메소드와_ProductRepository의_findById_메소드가_한번_실행된다() {
+    void change_메소드_실행하면_ProductRepository의_findById_메소드가_한번_실행된다() {
         // given
         Long productId = 1L;
         int newPrice = 1000;
-        Product product = mock(Product.class);
+        Product product = Product.create(1L, "TOP", 10, id -> {
+        });
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+        doNothing().when(outboxService).register(any(ProductPriceChangedOutboxEvent.class));
 
         // when
         service.change(productId, newPrice);
 
         // then
-        verify(product, times(1)).changePrice(newPrice);
         verify(productRepository, times(1)).findById(productId);
+        verify(outboxService).register(any(ProductPriceChangedOutboxEvent.class));
     }
 
     @Test

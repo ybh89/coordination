@@ -2,6 +2,7 @@ package com.toy.brand.command.application;
 
 import com.toy.brand.command.domain.Brand;
 import com.toy.brand.command.domain.BrandRepository;
+import com.toy.outbox.command.application.OutboxService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,9 @@ import static org.mockito.Mockito.*;
 class BrandDeleteServiceTest {
     @Mock
     private BrandRepository brandRepository;
+
+    @Mock
+    private OutboxService outboxService;
 
     @InjectMocks
     private BrandDeleteService brandDeleteService;
